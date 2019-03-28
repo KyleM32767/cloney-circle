@@ -16,45 +16,39 @@ import java.awt.Graphics;
 public class GameGUI extends Applet
 {
 	/**
-	 * Initialized the applet
+	 * Initializes the applet
+	 * 
+	 * @Override
 	 */
-	@Override
 	public void init()
 	{
 		this.setSize(500, 500);
 	}
 	
 	/**
-	 * draws the game
-	 * at the moment it's just a ball going back and forth
+	 * Draws the game
+	 * At the moment it's just a ball bouncing without changing color
+	 * 
+	 * **THERE WILL BE NO GAME LOGIC IN HERE ANY LOGIC SEEN IS ONLY FOR TESTING PURPOSES**
 	 */
 	public void paint(Graphics g)
 	{
-		Ball ball = new Ball(100, 100, new Color(0,0,0), 10);
+		Ball ball = new Ball(100, 100, new Color(0,0,0), 10, new Parabola(0.2, 24, 35, 48));
 		ball.draw(g);
 		
-		//just moves the ball foreward and backward
+		//bounces the ball using the Parabola class
 		while (true)
 		{
-			for (int i = 100; i < 400; i += 5)
-			{
-				ball.move(i, 100);
-				ball.draw(g);
-				sleep(17); //get that solid 60 fps yo
-			}
-			for (int i = 400; i > 100; i -= 5)
-			{
-				ball.move(i, 100);
-				ball.draw(g);
-				sleep(17); //get that solid 60 fps yo
-			}
+			ball.step();
+			ball.draw(g);
+			sleep(20);
 		}
 	}
 
 	/**
-	 * does a delay via Thread.delay() with a try-catch loop, which can somehow get around
-	 * the fact that paint() cannot throw an InterruptedException. I honestly have no idea
-	 * why this works.
+	 * Does a delay via Thread.delay() with a try-catch statement, which can somehow get
+	 * around the fact that paint() cannot throw an InterruptedException. I honestly have
+	 * no idea why this works and it dooesn't otherwise.
 	 * 
 	 * @param ms	the delay in milliseconds
 	 */

@@ -31,6 +31,10 @@ public abstract class ColoredObject
 	 */
 	private Color color;
 	
+	
+	//TODO add an array of in-game colors
+	
+	
 	//METHODS----------------------------------------------------------------------------
 	
 	/**
@@ -62,6 +66,7 @@ public abstract class ColoredObject
 		return color.equals(co.getColor());
 	}
 	
+	
 	/**
 	 * returns the y-coordinate
 	 * 
@@ -71,6 +76,7 @@ public abstract class ColoredObject
 	{
 		return y;
 	}
+	
 	
 	/**
 	 * returns the x-coordinate
@@ -93,6 +99,7 @@ public abstract class ColoredObject
 		return color;
 	}
 	
+	
 	/**
 	 * changes the object's color
 	 * 
@@ -102,6 +109,7 @@ public abstract class ColoredObject
 	{
 		color = newColor;
 	}
+	
 	
 	/**
 	 * moves a ColoredObject
@@ -115,6 +123,7 @@ public abstract class ColoredObject
 		y = newY;
 	}
 	
+	
 	/**
 	 * sets the coordinates of where the ColoredObject was last drawn to the current coordinates.
 	 * @see the draw() methods in subclasses
@@ -124,6 +133,7 @@ public abstract class ColoredObject
 		oldX = x;
 		oldY = y;
 	}
+	
 	
 	/**
 	 * gets the old x-coordinate
@@ -135,6 +145,7 @@ public abstract class ColoredObject
 		return oldX;
 	}
 	
+	
 	/**
 	 * gets the old y-coordinate
 	 * 
@@ -144,6 +155,7 @@ public abstract class ColoredObject
 	{
 		return oldY;
 	}
+	
 	
 	/**
 	 * draws the ColoredObject
