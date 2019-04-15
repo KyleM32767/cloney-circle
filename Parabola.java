@@ -47,8 +47,9 @@ public class Parabola
 	 * Constructor with a given leading coefficient and vertex
 	 * 
 	 * @param coefficient_a 	the leading coefficient
-	 * @param coefficient_h 	the x-coordinate of the vertex
-	 * @param coefficient_k 	the y-coordinate of the vertex
+	 * @param vertex_x		 	the x-coordinate of the vertex
+	 * @param vertex_y 			the y-coordinate of the vertex
+	 * @param max				the maximum step that is allowed
 	 */
 	public Parabola(double coefficient_a, int vertex_x, int vertex_y, int max)
 	{
@@ -59,8 +60,22 @@ public class Parabola
 		reset();
 	}
 	
-	
-	//TODO add another constructor that uses a start point and a vertex
+	/**
+	 * Constructor with a given start point and vertex. The max step is automatically set such
+	 * that it ends right at the same point it started at
+	 * 
+	 * @param start_point	the st
+	 * @param vertex_x
+	 * @param vertex_y
+	 */
+	public Parabola(int start_point, int vertex_x, int vertex_y)
+	{
+		a = (double)(start_point - vertex_y) / (Math.pow(vertex_x, 2));
+		h = vertex_x;
+		k = vertex_y;
+		maxStep = 2 * vertex_x;
+		reset();
+	}
 	
 	
 	/**

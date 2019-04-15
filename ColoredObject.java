@@ -10,7 +10,6 @@
 package cloney_circle;
 
 import java.awt.*;
-import java.applet.Applet;
 
 public abstract class ColoredObject
 {

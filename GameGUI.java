@@ -33,7 +33,7 @@ public class GameGUI extends Applet
 	 */
 	public void paint(Graphics g)
 	{
-		Ball ball = new Ball(100, 100, new Color(0,0,0), 10, new Parabola(0.2, 24, 35, 48));
+		Ball ball = new Ball(100, 100, new Color(0,0,0), 10, new Parabola(150, 24, 35));
 		ball.draw(g);
 		
 		//bounces the ball using the Parabola class
