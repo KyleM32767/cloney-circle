@@ -3,6 +3,8 @@
  * 
  * Class for one single-colored fragment of the circle in cloney circle
  * 
+ * All angles are in radians because that's what the everything in java.lang.Math uses
+ * 
  * @author Kyle Mitard
  * 
  * Created 16 April 2019
@@ -59,16 +61,29 @@ public class CircleFragment extends ColoredObject
 	/**
 	 * rotates the CircleFragment about a given point
 	 * 
-	 * @param x	the x-coordinate of the point
-	 * @param y	the y-coordinate of the point
-	 * @param a	an angle in radians
+	 * the math comes from here:
+	 * https://www.gamefromscratch.com/post/2012/11/24/GameDev-math-recipes-Rotating-one-point-around-another-point.aspx
+	 * 
+	 * @param x	the x-coordinate of the point of rotation
+	 * @param y	the y-coordinate of the point of rotation
+	 * @param a	the angle of rotation in radians
 	 */
 	public void rotate(int x, int y, double a)
-	{/*TODO this entire method*/}
+	{	
+		int newX = (int) (Math.cos(a) * (super.getX() - x)
+				- Math.sin(a) * (super.getY() - y) + x);
+		
+		int newY = (int) (Math.sin(a) * (super.getX() - x)
+				+ Math.cos(a) * (super.getY() - y) + y);
+		
+		super.move(newX, newY);
+		
+		angle += a;
+	}
 	
 	
 	/**
-	 * draws the ColoredObject
+	 * draws the CircleFragment
 	 * 
 	 * @param g	the Graphics object the ColoredObject will be drawn on
 	 * 
@@ -85,10 +100,9 @@ public class CircleFragment extends ColoredObject
 		int y2 = (int) (y1 + length * Math.sin(angle));
 		
 		for (int i = 0; i < thickness; i++)
-		{
 			g.drawLine(x1 + i, y1 + i, x2 + i, y2 + i);
-		}
 		
+		g.fillOval(x1, y1, 10, 10);
 	}
 
 }
