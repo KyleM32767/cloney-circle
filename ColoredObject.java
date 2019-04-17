@@ -30,16 +30,11 @@ public abstract class ColoredObject
 	 */
 	private Color color;
 	
-	
-	//TODO add an array of in-game colors
-	
-	
 	//METHODS----------------------------------------------------------------------------
 	
 	/**
 	 * Constructor
 	 * 
-	 * @param page		the Graphics object it will be displayed on
 	 * @param xCoord	the ColoredObject's initial x coordinate
 	 * @param yCoord	the ColoredObject's initial y coordinate
 	 * @param c			the ColoredObject's initial color

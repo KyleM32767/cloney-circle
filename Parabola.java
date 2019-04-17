@@ -115,12 +115,9 @@ public class Parabola
 		if (step == maxStep)
 		{
 			reset();
-			System.out.println(" reset ");
 		}
 		else
 			step++;
-		
-		System.out.print(step + " ");
 		
 		return y;
 	}

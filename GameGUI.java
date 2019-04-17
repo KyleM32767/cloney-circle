@@ -2,63 +2,68 @@
  * GameGUI.java
  * The GUI for Cloney Circle
  * 
+ * **THERE WILL BE NO GAME LOGIC IN HERE ANY LOGIC SEEN IS ONLY FOR TESTING PURPOSES**
+ * 
  * @author Kyle Mitard
  * 
  * 23 March 2019
+ * 
+ * TODO learn how Timers work in swing
  */
 
 package cloney_circle;
 
-import java.applet.Applet;
+import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class GameGUI extends Applet
+public class GameGUI extends JFrame
 {
 	/**
-	 * Initializes the applet
-	 * 
-	 * @Override
+	 * I'm just adding this to make Eclipse happy
 	 */
-	public void init()
-	{
-		this.setSize(500, 500);
-	}
+	private static final long serialVersionUID = 1L;
+	
+	
+	static Ball ball = new Ball(100, 100, new Color(0,0,0), 10, new Parabola(150, 24, 35));
+	static CircleFragment fragment = new CircleFragment(200,200, new Color(0,0,0), 50, 5, Math.PI / 3);
 	
 	/**
-	 * Draws the game
+	 * Where everything actually happens
 	 * At the moment it's just a ball bouncing without changing color
-	 * 
-	 * **THERE WILL BE NO GAME LOGIC IN HERE ANY LOGIC SEEN IS ONLY FOR TESTING PURPOSES**
+	 * It's flickery as hell and I have no idea why
 	 */
-	public void paint(Graphics g)
+	public static void main(String[] args) throws InterruptedException
 	{
-		Ball ball = new Ball(100, 100, new Color(0,0,0), 10, new Parabola(150, 24, 35));
-		ball.draw(g);
+		
+		GameGUI gui = new GameGUI();
 		
 		//bounces the ball using the Parabola class
 		while (true)
 		{
+			gui.repaint();
 			ball.step();
-			ball.draw(g);
-			sleep(20);
+			Thread.sleep(33);
 		}
 	}
-
+	
 	/**
-	 * Does a delay via Thread.delay() with a try-catch statement, which can somehow get
-	 * around the fact that paint() cannot throw an InterruptedException. I honestly have
-	 * no idea why this works and it dooesn't otherwise.
+	 * Initializes the GUI
 	 * 
-	 * @param ms	the delay in milliseconds
+	 * @Override
 	 */
-	public static void sleep(int ms)
+	public GameGUI()
 	{
-		try
-		{
-			Thread.sleep(ms);
-		}
-		catch(Exception e)
-		{}
+		setSize(500, 500);
+		setVisible(true);
+	}
+	
+	/**
+	 * Draws a frame of the game
+	 */
+	public void paint(Graphics g)
+	{
+		ball.draw(g);
+		fragment.draw(g);
 	}
 }

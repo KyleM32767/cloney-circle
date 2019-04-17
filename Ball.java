@@ -65,6 +65,7 @@ public class Ball extends ColoredObject
 		g.clearRect(super.getOldX(), super.getOldY(), d, d);
 		
 		//draw the new object
+		g.setColor(super.getColor());
 		g.fillOval(super.getX(), super.getY(), d, d);
 		
 		//change the old coordinates
