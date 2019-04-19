@@ -8,6 +8,8 @@
  * @author Kyle Mitard
  * 
  * Created 16 April 2019
+ * 
+ * Last updated 19 April 2019 
  */
 
 package cloney_circle;
@@ -85,7 +87,7 @@ public class CircleFragment extends ColoredObject
 	/**
 	 * draws the CircleFragment
 	 * 
-	 * @param g	the Graphics object the ColoredObject will be drawn on
+	 * @param g	the Graphics object the CircleFragment will be drawn on
 	 * 
 	 * @Override
 	 */
@@ -99,10 +101,30 @@ public class CircleFragment extends ColoredObject
 		int x2 = (int) (x1 + length * Math.cos(angle)); 
 		int y2 = (int) (y1 + length * Math.sin(angle));
 		
-		for (int i = 0; i < thickness; i++)
-			g.drawLine(x1 + i, y1 + i, x2 + i, y2 + i);
+		int[] xCoords = {x1, x2, x2 + thickness, x1 + thickness};
+		int[] yCoords = {y1, y2, y2 + thickness, y1 + thickness};
 		
-		g.fillOval(x1, y1, 10, 10);
+		g.fillPolygon(xCoords, yCoords, 4);
 	}
-
+	
+	
+	/**
+	 * returns the angle of the CircleFragment
+	 * 
+	 * @return	an angle in radians
+	 */
+	public double getAngle()
+	{
+		return angle;
+	}
+	
+	
+	/**
+	 * returns a string representation of the circleFragment for testing/debugging purposes
+	 */
+	@Override
+	public String toString()
+	{
+		return super.getColor().toString() + " at (" + super.getX() + ", " + super.getY() + ")";
+	}
 }

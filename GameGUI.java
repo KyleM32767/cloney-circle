@@ -7,6 +7,8 @@
  * @author Kyle Mitard
  * 
  * Created 23 March 2019
+ * 
+ * Last updated 19 April 2019
  */
 
 package cloney_circle;
@@ -24,9 +26,10 @@ public class GameGUI extends JFrame implements KeyListener
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	static Color[] colors = {Color.BLACK, Color.BLUE, Color.GREEN, Color.RED, Color.YELLOW, Color.ORANGE, Color.CYAN};
 	
-	static Ball ball = new Ball(100, 100, new Color(0,0,0), 10, new Parabola(150, 24, 35));
-	static CircleFragment fragment = new CircleFragment(200,200, new Color(0,0,0), 50, 5, Math.PI / 3);
+	//static Ball ball = new Ball(100, 100, new Color(0,0,0), 10, new Parabola(150, 24, 35));
+	static Circle circle = new Circle(500, 500, 300, colors, 10);
 	
 	
 	/**
@@ -41,10 +44,6 @@ public class GameGUI extends JFrame implements KeyListener
 	static Timer timer;
 	
 	
-	/**
-	 * Where everything actually happens
-	 * The ball is flickery as hell and I have no idea why
-	 */
 	public static void main(String[] args) throws InterruptedException
 	{
 		
@@ -52,14 +51,12 @@ public class GameGUI extends JFrame implements KeyListener
 		
 		//initialize and start the timer, which is used to draw new frames at regular intervals
 		timer = new Timer(33, new ActionListener()
+			{
+				public void actionPerformed(ActionEvent e)
 				{
-					public void actionPerformed(ActionEvent e)
-					{
-						gui.repaint();
-						//ball.step();
-						fragment.rotate(150, 150, Math.PI / 4);
-					}
-				});
+					gui.drawFrame(gui.getGraphics());
+				}
+			});
 		timer.setInitialDelay(1000);
 		timer.start();
 	}
@@ -78,16 +75,18 @@ public class GameGUI extends JFrame implements KeyListener
 		
 		//make the window visible
 		setVisible(true);
+		
+		setIgnoreRepaint(true);
 	}
 	
 	
 	/**
 	 * Draws a frame of the game
+	 * it's flickery as hell because reasons
 	 */
-	public void paint(Graphics g)
+	public void drawFrame(Graphics g)
 	{
-		//ball.draw(g);
-		fragment.draw(g);
+		circle.draw(g);
 	}
 
 
@@ -108,7 +107,7 @@ public class GameGUI extends JFrame implements KeyListener
 		
 		//space bar is pressed	-> rotates the circle **ONLY A PLACEHOLDER RIGHT NOW**
 		if (keyCode == KeyEvent.VK_SPACE)
-			System.out.println("R O T A T E");
+			circle.turn();
 		
 		//escape is pressed		-> quit the game
 		else if (keyCode == KeyEvent.VK_ESCAPE)
