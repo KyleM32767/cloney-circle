@@ -28,8 +28,8 @@ public class GameGUI extends JFrame implements KeyListener
 	
 	static Color[] colors = {Color.BLACK, Color.BLUE, Color.GREEN, Color.RED, Color.YELLOW, Color.ORANGE, Color.CYAN};
 	
-	//static Ball ball = new Ball(100, 100, new Color(0,0,0), 10, new Parabola(150, 24, 35));
-	static Circle circle = new Circle(500, 500, 300, colors, 10);
+	static Ball ball = new Ball(475, 750, new Color(0,0,0), 50, new Parabola(750, 24, 450));
+	static Circle circle = new Circle(500, 500, 300, colors, 20);
 	
 	
 	/**
@@ -54,6 +54,7 @@ public class GameGUI extends JFrame implements KeyListener
 			{
 				public void actionPerformed(ActionEvent e)
 				{
+					ball.step();
 					gui.drawFrame(gui.getGraphics());
 				}
 			});
@@ -86,6 +87,7 @@ public class GameGUI extends JFrame implements KeyListener
 	 */
 	public void drawFrame(Graphics g)
 	{
+		ball.draw(g);
 		circle.draw(g);
 	}
 

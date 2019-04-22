@@ -10,7 +10,7 @@
  * 
  * Created 18 April 2019
  * 
- * Last updated 19 April 2019
+ * Last updated 21 April 2019
  */
 
 package cloney_circle;
@@ -81,8 +81,11 @@ public class Circle
 		radius = r;
 		bottomIndex = 0;
 		
-		//calculate the length of each part to the circle
-		//TODO upload a derivation of this
+		/*
+		 * //calculate the length of each part to the circle
+		 * this one isn't immediately obvious as to why so here is a derivation of it:
+		 * https://docs.google.com/document/d/1a4joJsVlFmSqraHsGgRAJRp5OkZLeW93JBuJsFOsMeI/edit?usp=sharing
+		 */
 		int fragmentLength = (int)(2 * radius * Math.tan(Math.PI / numSides));
 		
 		//calculate the points of the bottom-most fragment's coordinates
@@ -103,18 +106,20 @@ public class Circle
 
 	
 	/**
-	 * Does a single rotation of the circle in a counter-clockwise direction
+	 * Does a single rotation of the circle in a clockwise direction
 	 */
 	public void turn()
 	{
 		//rotate each individual part
 		for (CircleFragment cf: parts)
-			cf.rotate(x, y, fragmentAngle);
+			cf.rotate(x, y, fragmentAngle * -1);
 		
 		//update bottomIndex
-		bottomIndex--;
-		if (bottomIndex < 0)
-			bottomIndex = parts.length - 1;
+		bottomIndex++;
+		if (bottomIndex == parts.length)
+			bottomIndex = 0;
+		
+		System.out.println(parts[bottomIndex]);
 	}
 	
 	

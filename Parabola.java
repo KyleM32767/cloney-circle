@@ -6,7 +6,9 @@
  * 
  * @author Kyle Mitard
  * 
- * 27 March 2019
+ * Created 27 March 2019
+ * 
+ * Last updated 21 April 2019
  */
 
 package cloney_circle;
@@ -63,6 +65,9 @@ public class Parabola
 	/**
 	 * Constructor with a given start point and vertex. The max step is automatically set such
 	 * that it ends right at the same point it started at
+	 * 
+	 * An explanation for the initialization of A can be found here:
+	 * https://photos.google.com/share/AF1QipNRYYwnL4LU7OOdt56jLcWQMvFo8jjMvEptNqKRU3c-XtaRSq9ZVlcyPRP6H2GcYA?key=ejVxVWNCRm1BRmgxNWJrQUV0a2RWN2MyeE85QnlR
 	 * 
 	 * @param start_point	the st
 	 * @param vertex_x

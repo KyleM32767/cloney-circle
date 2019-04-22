@@ -49,9 +49,6 @@ public class Ball extends ColoredObject
 	}
 	
 	
-	//TODO add a constuructor that randomly selects the color
-	
-	
 	/**
 	 * Draws the ball
 	 * 

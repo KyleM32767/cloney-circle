@@ -101,8 +101,8 @@ public class CircleFragment extends ColoredObject
 		int x2 = (int) (x1 + length * Math.cos(angle)); 
 		int y2 = (int) (y1 + length * Math.sin(angle));
 		
-		int[] xCoords = {x1, x2, x2 + thickness, x1 + thickness};
-		int[] yCoords = {y1, y2, y2 + thickness, y1 + thickness};
+		int[] xCoords = {x1, x2, x2 - (int) (thickness * Math.sin(angle)), x1 - (int) (thickness * Math.sin(angle))};
+		int[] yCoords = {y1, y2, y2 + (int) (thickness * Math.cos(angle)), y1 + (int) (thickness * Math.cos(angle))};
 		
 		g.fillPolygon(xCoords, yCoords, 4);
 	}
