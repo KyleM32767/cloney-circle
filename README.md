@@ -1,5 +1,6 @@
 # cloney-circle
-My own recreation of the mobile game Spinny Circle with Java
+My own recreation of the mobile game Spinny Circle with Java because why the hell not? I did this all from scratch because using a game engine is cheating
+
 
 IMPORTANT EXTENDED EXPLANATIONS:
 * [Lines 75-79 in CircleFragment.java](https://www.gamefromscratch.com/post/2012/11/24/GameDev-math-recipes-Rotating-one-point-around-another-point.aspx) - Rotation of a CirclecleFragment about a point

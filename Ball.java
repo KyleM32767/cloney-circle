@@ -5,7 +5,9 @@
  * 
  * @author Kyle Mitard
  * 
- * 23 March 2019
+ * Created 23 March 2019
+ * 
+ * Last updated 22 April 2019
  */
 
 package cloney_circle;
@@ -78,4 +80,14 @@ public class Ball extends ColoredObject
 		super.move(super.getX(), path.nextStep());
 	}
 	
+	
+	/**
+	 * Checks if the ball is at the end of its path (i.e. it landed on what it's bouncing on)
+	 * 
+	 * @return true if the ball is at the end of the path
+	 */
+	public boolean hasLanded()
+	{
+		return path.isAtEnd();
+	}
 }

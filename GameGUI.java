@@ -8,13 +8,16 @@
  * 
  * Created 23 March 2019
  * 
- * Last updated 19 April 2019
+ * Last updated 22 April 2019
  */
 
 package cloney_circle;
 
 import javax.swing.*; 
 import java.awt.event.*;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.Font;
 
 public class GameGUI extends JFrame implements KeyListener
 {
@@ -24,6 +27,8 @@ public class GameGUI extends JFrame implements KeyListener
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	
+	//INSTANCE VARIABLES-------------------------------------------------------------------
 	
 	/**
 	 * The logic behind the game
@@ -43,9 +48,31 @@ public class GameGUI extends JFrame implements KeyListener
 	static Timer timer;
 	
 	
-	
+	/**
+	 * the size of the window in pixels (it's a square window)
+	 */
 	final static int WINDOW_SIZE = 1000;
 	
+	
+	/**
+	 * Where the score will be displayed
+	 */
+	static JLabel scoreboard;
+	
+	
+	/**
+	 * The panel where the scoreboard will be
+	 */
+	JPanel scorePanel;
+	
+	
+	/**
+	 * The container where the score panel will be
+	 */
+	Container cp;
+	
+	
+	//METHODS------------------------------------------------------------------------------
 	
 	public static void main(String[] args) throws InterruptedException
 	{
@@ -58,8 +85,13 @@ public class GameGUI extends JFrame implements KeyListener
 			{
 				public void actionPerformed(ActionEvent e)
 				{
+					if (game.gameOver())
+						quitGame();
+					
 					game.nextFrame();
 					game.drawFrame();
+					
+					scoreboard.setText("Score: " + game.getScore());
 				}
 			});
 		timer.setInitialDelay(1000);
@@ -71,7 +103,7 @@ public class GameGUI extends JFrame implements KeyListener
 	 * Initializes the GUI
 	 */
 	public GameGUI()
-	{
+	{	
 		//set dimensions of the window
 		setSize(WINDOW_SIZE, WINDOW_SIZE);
 		
@@ -81,17 +113,22 @@ public class GameGUI extends JFrame implements KeyListener
 		//make the window visible
 		setVisible(true);
 		
-		//this is SUPPOSED to combat flickering
+		//this is supposed to combat flickering
 		setIgnoreRepaint(true);
+		
+		//set up scoreboard
+		scoreboard = new JLabel("Score: 0");
+		scoreboard.setFont(new Font("Arial", Font.PLAIN, 36));
+		cp = getContentPane();
+		cp.setLayout(new FlowLayout());
+		scorePanel = new JPanel();
+		scorePanel.add(scoreboard);
+		cp.add(scorePanel);
 	}
 
+	
 	/**
 	 * Rotates the circle if the space bar is pressed, quits if esc is pressed
-	 * 
-	 * ...that is what it should do once this game is actually finished. Right now it just
-	 * prints a placeholder statement, as the rest of the game is not ready yet
-	 * 
-	 * TODO complete this when the game is ready
 	 * 
 	 * @param e	a KeyEvent representing the last keystroke detected
 	 */
@@ -111,15 +148,26 @@ public class GameGUI extends JFrame implements KeyListener
 		//escape is pressed		-> quit the game
 		case (KeyEvent.VK_ESCAPE):
 		{
-			timer.stop();
-			gui.setVisible(false);
-			System.exit(0);
+			quitGame();
+			break;
 		}
 		
 		}
 	}
 
+	
+	/**
+	 * Exits the game
+	 */
+	public static void quitGame()
+	{
+		timer.stop();
+		gui.setVisible(false);
+		System.out.println("FINAL SCORE: " + game.getScore());
+		System.exit(0);
+	}
 
+	
 	//these methods have nothing, but the must be here because of the KeyListener interface
 	@Override
 	public void keyReleased(KeyEvent arg0){}

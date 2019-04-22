@@ -12,7 +12,7 @@
  * 
  * Created 21 April 2019
  * 
- * Last Updated
+ * Last Updated 22 April 2019
  */
 
 package cloney_circle;
@@ -49,6 +49,18 @@ public class GameLogic
 	private Graphics g;
 	
 	
+	/**
+	 * The score of the game
+	 */
+	private int score;
+	
+	
+	/**
+	 * whether or not the game is lost 
+	 */
+	private boolean gameLost;
+	
+	
 	//METHODS--------------------------------------------------------------------------------
 	
 	/**
@@ -64,6 +76,11 @@ public class GameLogic
 		
 		//initialize graphics
 		g = window;
+		
+		//initialize score
+		score = 0;
+		
+		gameLost = false;
 		
 		//center of the Circle, which is being put in the center of the window
 		int center = size / 2;
@@ -92,6 +109,25 @@ public class GameLogic
 	public void nextFrame()
 	{
 		ball.step();
+		
+		//when the ball hits the circle
+		if (ball.hasLanded())
+		{
+			//if the colors match
+			if (circle.getBottomPart().equals(ball))
+			{
+				//increment the score
+				score++;
+				
+				//randomize the ball's color
+				ball.setColor(colors[(int) (Math.random() * colors.length)]);
+				
+				System.out.println(score);
+			}
+			
+			else
+				gameLost = true;
+		}
 	}
 	
 	
@@ -111,5 +147,27 @@ public class GameLogic
 	public void turnCircle()
 	{
 		circle.turn();
+	}
+	
+	
+	/**
+	 * Checks if the game hasn't been lost
+	 * 
+	 * @return true if the player has lost the game
+	 */
+	public boolean gameOver()
+	{
+		return gameLost;
+	}
+	
+	
+	/**
+	 * gets the score
+	 * 
+	 * @return an int representing the score
+	 */
+	public int getScore()
+	{
+		return score;
 	}
 }

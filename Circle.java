@@ -10,7 +10,7 @@
  * 
  * Created 18 April 2019
  * 
- * Last updated 21 April 2019
+ * Last updated 22 April 2019
  */
 
 package cloney_circle;
@@ -118,8 +118,6 @@ public class Circle
 		bottomIndex++;
 		if (bottomIndex == parts.length)
 			bottomIndex = 0;
-		
-		System.out.println(parts[bottomIndex]);
 	}
 	
 	

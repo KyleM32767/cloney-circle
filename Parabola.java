@@ -8,7 +8,7 @@
  * 
  * Created 27 March 2019
  * 
- * Last updated 21 April 2019
+ * Last updated 22 April 2019
  */
 
 package cloney_circle;
@@ -117,7 +117,7 @@ public class Parabola
 	{
 		int y = (int) (a * Math.pow(step - h, 2) + k);
 		
-		if (step == maxStep)
+		if (isAtEnd())
 		{
 			reset();
 		}
@@ -125,5 +125,16 @@ public class Parabola
 			step++;
 		
 		return y;
+	}
+	
+	
+	/**
+	 * Checks if the current step at the end
+	 * 
+	 * @return true if the current step is the maximum step
+	 */
+	public boolean isAtEnd()
+	{
+		return (step == maxStep);
 	}
 }
