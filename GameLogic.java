@@ -12,7 +12,7 @@
  * 
  * Created 21 April 2019
  * 
- * Last Updated 22 April 2019
+ * Last Updated 26 April 2019
  */
 
 package cloney_circle;
@@ -41,6 +41,12 @@ public class GameLogic
 	 * An array of all the colors that are used in the game
 	 */
 	private static Color[] colors = {Color.BLACK, Color.BLUE, Color.GREEN, Color.RED, Color.YELLOW, Color.ORANGE, Color.CYAN};
+	
+	
+	/**
+	 * The index of colors that represents the ball's color
+	 */
+	private int ballColorIndex;
 	
 	
 	/**
@@ -100,6 +106,7 @@ public class GameLogic
 		
 		//initialize the ball (account for diameter since it is drawn from the corner, not the center)
 		ball = new Ball(center - ballRadius, center + circleRadius - ballDiameter, colors[0], ballDiameter, new Parabola(center + circleRadius - ballDiameter, 48, center - ballDiameter));
+		ballColorIndex = 0;
 	}
 	
 	
@@ -120,9 +127,7 @@ public class GameLogic
 				score++;
 				
 				//randomize the ball's color
-				ball.setColor(colors[(int) (Math.random() * colors.length)]);
-				
-				System.out.println(score);
+				changeBall(); 
 			}
 			
 			else
@@ -169,5 +174,24 @@ public class GameLogic
 	public int getScore()
 	{
 		return score;
+	}
+	
+	
+	/**
+	 * changes the ball's color so that there is no repeat
+	 */
+	public void changeBall()
+	{
+		int oldIndex = ballColorIndex;
+		int newIndex;
+		
+		do
+		{
+			newIndex = (int) (Math.random() * colors.length);
+		}
+		while(newIndex == oldIndex);
+		
+		ball.setColor(colors[newIndex]);
+		ballColorIndex = newIndex;
 	}
 }
