@@ -148,19 +148,16 @@ public class GameGUI extends JFrame implements KeyListener
 		switch (e.getKeyCode())
 		{
 		
-		//space bar is pressed	-> rotates the circle
-		case (KeyEvent.VK_SPACE):
-		{
-			game.turnCircle();
-			break;
-		}
-		
-		//escape is pressed		-> quit the game
-		case (KeyEvent.VK_ESCAPE):
+		//escape is pressed	-> quit the game
+		case (KeyEvent.VK_E):
 		{
 			quitGame();
 			break;
 		}
+		
+		//any other key is pressed -> turn the circle
+		default:
+			game.turnCircle();
 		
 		}
 	}
