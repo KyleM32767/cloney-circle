@@ -8,7 +8,7 @@
  * 
  * Created 23 March 2019
  * 
- * Last updated 22 April 2019
+ * Last updated 26 April 2019
  */
 
 package cloney_circle;
@@ -86,7 +86,17 @@ public class GameGUI extends JFrame implements KeyListener
 				public void actionPerformed(ActionEvent e)
 				{
 					if (game.gameOver())
-						quitGame();
+					{
+						//ask to play again
+						if (JOptionPane.showConfirmDialog(null, "FINAL SCORE: " + game.getScore() + "\nPlay Again?") == JOptionPane.YES_OPTION)
+						{
+							//reset the game if yes
+							game = new GameLogic(gui.getGraphics(), WINDOW_SIZE);
+							System.gc();
+						}
+						else //quit if no
+							quitGame();
+					}
 					
 					game.nextFrame();
 					game.drawFrame();
@@ -118,7 +128,7 @@ public class GameGUI extends JFrame implements KeyListener
 		
 		//set up scoreboard
 		scoreboard = new JLabel("Score: 0");
-		scoreboard.setFont(new Font("Arial", Font.PLAIN, 36));
+		scoreboard.setFont(new Font("Arial ", Font.PLAIN, 36));
 		cp = getContentPane();
 		cp.setLayout(new FlowLayout());
 		scorePanel = new JPanel();
@@ -163,7 +173,6 @@ public class GameGUI extends JFrame implements KeyListener
 	{
 		timer.stop();
 		gui.setVisible(false);
-		System.out.println("FINAL SCORE: " + game.getScore());
 		System.exit(0);
 	}
 
