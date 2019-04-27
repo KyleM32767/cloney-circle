@@ -17,6 +17,7 @@ package cloney_circle;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 
 public class Circle
 {
@@ -58,6 +59,25 @@ public class Circle
 	 */
 	private int y;
 	
+	
+	/**
+	 * The amount of frames it takes to do one turn
+	 */
+	private final int TURN_FRAMES = 8;
+	
+	
+	/**
+	 * What frame in a turn the circle is in (0 if not turning at all)
+	 */
+	private int turnStatus;
+	
+	
+	/**
+	 * an array of where the fragments were initially, which is for fixing any shifting of fragments due to rounding
+	 */
+	private final Point[] fragmentPoints;
+	
+	
 	//METHODS--------------------------------------------------------------------------------
 	
 	/**
@@ -80,9 +100,11 @@ public class Circle
 		fragmentAngle = 2 * Math.PI / numSides;
 		radius = r;
 		bottomIndex = 0;
+		turnStatus = 0;
+		fragmentPoints = new Point[numSides];
 		
 		/*
-		 * //calculate the length of each part to the circle
+		 * calculate the length of each part to the circle
 		 * this one isn't immediately obvious as to why so here is a derivation of it:
 		 * https://docs.google.com/document/d/1a4joJsVlFmSqraHsGgRAJRp5OkZLeW93JBuJsFOsMeI/edit?usp=sharing
 		 */
@@ -90,7 +112,7 @@ public class Circle
 		
 		//calculate the points of the bottom-most fragment's coordinates
 		int bottomX = x - fragmentLength / 2;
-		int bottomY = x + radius;
+		int bottomY = y + radius;
 		
 		//initialize the parts array
 		parts = new CircleFragment[numSides];
@@ -101,23 +123,25 @@ public class Circle
 			
 			//rotate each part to its spot
 			parts[i].rotate(x, y, fragmentAngle * i);
+			
+			fragmentPoints[i] = new Point(parts[i].getX(), parts[i].getY());
 		}
 	}
 
 	
 	/**
-	 * Does a single rotation of the circle in a clockwise direction
+	 * Does a single rotation of the circle in a counterclockwise direction
 	 */
 	public void turn()
 	{
-		//rotate each individual part
-		for (CircleFragment cf: parts)
-			cf.rotate(x, y, fragmentAngle * -1);
-		
-		//update bottomIndex
-		bottomIndex++;
-		if (bottomIndex == parts.length)
-			bottomIndex = 0;
+		if (turnStatus == 0)
+		{
+			turnStatus++;
+			
+			bottomIndex++;
+			if (bottomIndex == parts.length)
+				bottomIndex = 0;
+		}
 	}
 	
 	
@@ -128,7 +152,24 @@ public class Circle
 	 */
 	public void draw(Graphics g)
 	{
-		//g.clearRect(x - radius, y - radius, 2 * radius, 2 * radius);
+		//clear the existing circle
+		g.clearRect((int) (x - radius * 1.3), (int) (y - radius * 1.3), (int) (2.6 * radius), (int) (2.6 * radius));
+		
+		//if the circle is in the middle of a turn
+		if (turnStatus > 0)
+		{
+			for (CircleFragment cf: parts)
+				cf.rotate(x, y, fragmentAngle * -1 / TURN_FRAMES);
+			
+			turnStatus++;
+		}
+		
+		//check if a turn is complete
+		if (turnStatus == TURN_FRAMES + 1)
+		{
+			turnStatus = 0;
+			fixCircle();
+		}
 		
 		for (CircleFragment cf: parts)
 		{
@@ -145,5 +186,23 @@ public class Circle
 	public CircleFragment getBottomPart()
 	{
 		return parts[bottomIndex];
+	}
+	
+	
+	/**
+	 * moves the parts back to the right place after a turn makes everything a little off
+	 */
+	public void fixCircle()
+	{
+		int index = bottomIndex;
+		
+		for (Point p: fragmentPoints)
+		{
+			parts[index].move((int) p.getX(), (int) p.getY());
+			
+			index++;
+			if (index == parts.length)
+				index = 0;
+		}
 	}
 }

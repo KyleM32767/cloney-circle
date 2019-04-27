@@ -127,4 +127,15 @@ public class CircleFragment extends ColoredObject
 	{
 		return super.getColor().toString() + " at (" + super.getX() + ", " + super.getY() + ")";
 	}
+	
+	
+	/**
+	 * returns the length of the fragment
+	 * 
+	 * @return an int representing the length of the fragment in pixels
+	 */
+	public int getLength()
+	{
+		return length;
+	}
 }

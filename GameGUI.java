@@ -81,7 +81,7 @@ public class GameGUI extends JFrame implements KeyListener
 		game = new GameLogic(gui.getGraphics(), WINDOW_SIZE);
 		
 		//initialize and start the timer, which is used to draw new frames at regular intervals
-		timer = new Timer(17, new ActionListener()
+		timer = new Timer(12, new ActionListener()
 			{
 				public void actionPerformed(ActionEvent e)
 				{
@@ -149,7 +149,7 @@ public class GameGUI extends JFrame implements KeyListener
 		{
 		
 		//escape is pressed	-> quit the game
-		case (KeyEvent.VK_E):
+		case (KeyEvent.VK_ESCAPE):
 		{
 			quitGame();
 			break;

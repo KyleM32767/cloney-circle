@@ -67,6 +67,12 @@ public class GameLogic
 	private boolean gameLost;
 	
 	
+	/**
+	 * flag to disable losing for debugging purposes
+	 */
+	private final boolean I_AM_DEBUGGING = false;
+	
+	
 	//METHODS--------------------------------------------------------------------------------
 	
 	/**
@@ -113,12 +119,13 @@ public class GameLogic
 	/**
 	 * advances to the next frame
 	 */
+	@SuppressWarnings("unused")
 	public void nextFrame()
 	{
 		ball.step();
 		
 		//when the ball hits the circle
-		if (ball.hasLanded())
+		if (ball.hasLanded() && !I_AM_DEBUGGING)
 		{
 			//if the colors match
 			if (circle.getBottomPart().equals(ball))
